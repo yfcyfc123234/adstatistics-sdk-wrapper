@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.yfc.adstatistics_sdk_wrapper"
-        minSdk = 28
+        minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -33,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":adstatistics"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

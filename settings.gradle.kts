@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "adstatistics-sdk-wrapper"
 include(":app")
+include(":adstatistics")
  
