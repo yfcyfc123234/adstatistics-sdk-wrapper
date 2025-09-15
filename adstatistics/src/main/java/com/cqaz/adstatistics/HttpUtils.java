@@ -3,8 +3,7 @@ package com.cqaz.adstatistics;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
-import androidx.annotation.Nullable;
-
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;

@@ -1,8 +1,5 @@
 package com.cqaz.adstatistics;
 
-import static android.Manifest.permission.ACCESS_WIFI_STATE;
-import static android.Manifest.permission.CHANGE_WIFI_STATE;
-import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.content.Context.WIFI_SERVICE;
 
 import android.annotation.SuppressLint;
@@ -18,8 +15,6 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.WindowManager;
-
-import androidx.annotation.RequiresPermission;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -102,7 +97,7 @@ class DeviceUtils {
         return Base64.encodeToString(input, Base64.NO_WRAP);
     }
 
-    @RequiresPermission(READ_PHONE_STATE)
+    @SuppressLint("MissingPermission")
     public static String getOAID(Context context) {
         try {
             String oaid = Settings.Secure.getString(context.getContentResolver(), "oaid");
@@ -231,7 +226,6 @@ class DeviceUtils {
         return md5StrBuff.toString();
     }
 
-    @RequiresPermission(allOf = {ACCESS_WIFI_STATE, CHANGE_WIFI_STATE})
     public static String getMacAddress(Context context) {
         String macAddress = getMacAddress(context, (String[]) null);
         if (!TextUtils.isEmpty(macAddress) || getWifiEnabled(context)) return macAddress;
@@ -253,7 +247,6 @@ class DeviceUtils {
      *
      * @param enabled True to enabled, false otherwise.
      */
-    @RequiresPermission(CHANGE_WIFI_STATE)
     private static void setWifiEnabled(final boolean enabled, Context context) {
         @SuppressLint("WifiManagerLeak")
         WifiManager manager = (WifiManager) context.getSystemService(WIFI_SERVICE);
@@ -262,7 +255,6 @@ class DeviceUtils {
         manager.setWifiEnabled(enabled);
     }
 
-    @RequiresPermission(allOf = {ACCESS_WIFI_STATE})
     private static String getMacAddress(Context context, final String... excepts) {
         String macAddress = getMacAddressByNetworkInterface();
         if (isAddressNotInExcepts(macAddress, excepts)) {
@@ -279,7 +271,6 @@ class DeviceUtils {
         return "";
     }
 
-    @RequiresPermission(ACCESS_WIFI_STATE)
     private static String getMacAddressByWifiInfo(Context context) {
         try {
             final WifiManager wifi = (WifiManager) context
